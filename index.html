@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            width: 300px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        input, select, button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #result {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Temperature Converter</h2>
+
+    <!-- Input Field -->
+    <input type="text" id="tempInput" placeholder="Enter temperature">
+
+    <!-- Dropdown -->
+    <select id="unit">
+        <option value="C">Celsius</option>
+        <option value="F">Fahrenheit</option>
+        <option value="K">Kelvin</option>
+    </select>
+
+    <!-- Button -->
+    <button onclick="convertTemp()">Convert</button>
+
+    <!-- Display Result -->
+    <div id="result"></div>
+</div>
+
+<script>
+function convertTemp() {
+    let temp = document.getElementById("tempInput").value;
+    let unit = document.getElementById("unit").value;
+    let result = document.getElementById("result");
+
+    // Validation
+    if (temp === "" || isNaN(temp)) {
+        result.innerHTML = "Please enter a valid number!";
+        result.style.color = "red";
+        return;
+    }
+
+    temp = parseFloat(temp);
+    let converted;
+
+    if (unit === "C") {
+        let f = (temp * 9/5) + 32;
+        let k = temp + 273.15;
+        converted = `${f.toFixed(2)} °F | ${k.toFixed(2)} K`;
+    } 
+    else if (unit === "F") {
+        let c = (temp - 32) * 5/9;
+        let k = c + 273.15;
+        converted = `${c.toFixed(2)} °C | ${k.toFixed(2)} K`;
+    } 
+    else if (unit === "K") {
+        let c = temp - 273.15;
+        let f = (c * 9/5) + 32;
+        converted = `${c.toFixed(2)} °C | ${f.toFixed(2)} °F`;
+    }
+
+    result.style.color = "green";
+    result.innerHTML = "Converted: " + converted;
+}
+</script>
+
+</body>
+</html>
